@@ -1,0 +1,23 @@
+{
+  "name": "nan-gai",
+  "version": "0.0.0",
+  "description": "A vue project.",
+  "private": false,
+  "keywords": [],
+  "scripts": {
+    "dev": "cooking watch -p",
+    "dist": "cooking build -p",
+    "deploy": "cooking build --no-color"
+  },
+  "author": "adolt",
+  "license": "ISC",
+  "dependencies": {
+    "babel-polyfill": "*",
+    "element-ui": "^1.2.7",
+    "vue": "^2.2.6",
+    "vue-router": "^2.3.1"
+  },
+  "devDependencies": {
+    "cooking-vue2": "*"
+  }
+}
