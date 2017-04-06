@@ -2,13 +2,18 @@
   <div>
     <el-tabs type="border-card">
       <el-tab-pane label="员工工资情况">
-        <hiring></hiring>
+        <salaryList></salaryList>
       </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
+  import salaryList from './children/salaryList';
   
-  export default {};
+  export default {
+    components: {
+      salaryList
+    }
+  };
 </script>
