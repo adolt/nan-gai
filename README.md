@@ -1,16 +1,17 @@
 # nan-gai
-> A vue project.
+> A vue project, using cooking & vue & Element.
 
-## Development
+## Get Started
 
 ```shell
-npm i cooking-cli -g
-npm run dev
-```
+git clone https://github.com/adolt/nan-gai
 
-## Production
-```
-npm run dist
+npm i cooking-cli -g
+
+cd nan-gai
+npm install
+
+npm run dev
 ```
 
 ## License
