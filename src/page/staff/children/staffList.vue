@@ -1,6 +1,8 @@
 <template>
   <div>
-    <searchInput></searchInput>
+    <searchInput>
+      <el-button @click="add()" style="float: right;" type="primary">新增</el-button>
+    </searchInput>
     <staffInfoTbl :data="staffInfo" @edit="edit()" @view="view()"></staffInfoTbl>
     <pagination></pagination>
 
@@ -12,11 +14,17 @@
         <el-form-item label="编号" :label-width="formLabelWidth">
           <el-input v-model="form.code" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="组织" :label-width="formLabelWidth">
-          <el-input v-model="form.org" auto-complete="off"></el-input>
+        <el-form-item label="邮箱" :label-width="formLabelWidth">
+          <el-input v-model="form.mail" auto-complete="off"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话" :label-width="formLabelWidth">
+        <el-form-item label="电话" :label-width="formLabelWidth">
           <el-input v-model="form.tel" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="联系地址" :label-width="formLabelWidth">
+          <el-input v-model="form.address" auto-complete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="所属部门" :label-width="formLabelWidth">
+          <orgSelect organization="form.org"></orgSelect> 
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -31,12 +39,14 @@
   import staffInfoTbl from '../../../components/staffInfoTbl';
   import searchInput from '../../../components/searchInput';
   import pagination from '../../../components/pagination';
+  import orgSelect from '../../../components/orgSelect';
   
   export default {
     components: {
       staffInfoTbl,
       searchInput,
-      pagination
+      pagination,
+      orgSelect
     },
   
     data() {
@@ -67,14 +77,20 @@
         form: {
           name: '',
           code: '',
-          org: '',
-          tel: ''
+          mail: '',
+          tel: '',
+          address: '',
+          org: ''
         },
         formLabelWidth: '120px'
       };
     },
   
     methods: {
+      add() {
+        this.operation = '新增';
+        this.visible = true;
+      },
       view() {
         this.operation = '查看';
         this.visible = true;

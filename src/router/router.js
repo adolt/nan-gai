@@ -7,8 +7,6 @@ const organization = r => require.ensure([], () => r(require('../page/organizati
 
 const hiring = r => require.ensure([], () => r(require('../page/hire/children/hiring')), 'hiring');
 const candidates = r => require.ensure([], () => r(require('../page/hire/children/candidates')), 'candidates');
-const salaryDetail = r => require.ensure([], () => r(require('../page/salary/children/salaryDetail')), 'salaryDetail');
-const staffDetail = r => require.ensure([], () => r(require('../page/staff/children/staffDetail')), 'staffDetail');
 const departments = r => require.ensure([], () => r(require('../page/organization/children/departments')), 'departments');
 const wage = r => require.ensure([], () => r(require('../page/organization/children/wage')), 'wage');
 const editDepartment = r => require.ensure([], () => r(require('../page/organization/children/editDepartment')), 'editDepartment');
@@ -41,20 +39,12 @@ export default [{
 
     {
       path: '/salary',
-      component: salary,
-      children: [{
-        path: 'salaryDetail',
-        component: salaryDetail
-      }]
+      component: salary
     },
 
     {
       path: '/staff',
-      component: staff,
-      children: [{
-        path: 'staffDetail',
-        component: staffDetail
-      }]
+      component: staff
     },
 
     {
