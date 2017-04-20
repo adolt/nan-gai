@@ -3,20 +3,45 @@
     <searchInput></searchInput>
     <staffInfoTbl :data="staffInfo" @edit="edit()" @view="view()"></staffInfoTbl>
     <pagination></pagination>
-
+  
     <el-dialog :title="operation" v-model="visible">
-      <el-form :model="form">
-        <el-form-item label="姓名" :label-width="formLabelWidth">
-          <el-input v-model="form.name" auto-complete="off"></el-input>
+      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <h4>个人信息</h4>
+        <el-form-item label="姓名">
+          <el-input v-model="formInline.user" placeholder="姓名"></el-input>
         </el-form-item>
-        <el-form-item label="编号" :label-width="formLabelWidth">
-          <el-input v-model="form.code" auto-complete="off"></el-input>
+        <el-form-item label="账户银行">
+          <el-select v-model="formInline.region" placeholder="账户银行">
+            <el-option label="中国银行" value="shanghai"></el-option>
+            <el-option label="招商银行" value="beijing"></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="组织" :label-width="formLabelWidth">
-          <el-input v-model="form.org" auto-complete="off"></el-input>
+        <el-form-item label="工号">
+          <el-input v-model="formInline.code" placeholder="工号"></el-input>
         </el-form-item>
-        <el-form-item label="联系电话" :label-width="formLabelWidth">
-          <el-input v-model="form.tel" auto-complete="off"></el-input>
+        <el-form-item label="账号">
+          <el-input v-model="formInline.code2" placeholder="账号"></el-input>
+        </el-form-item>
+        <h4>岗位信息</h4>
+        <orgSelect :organization="formInline.org"></orgSelect>
+        <h4>工资信息</h4>
+        <el-form-item label="工资信息:">
+          <el-checkbox-group v-model="formInline.type">
+            <el-checkbox label="基本工资"></el-checkbox>
+            <el-checkbox label="岗位工资"></el-checkbox>
+            <el-checkbox label="绩效工资"></el-checkbox>
+            <el-checkbox label="奖励补贴"></el-checkbox>
+            <el-checkbox label="满勤奖"></el-checkbox>
+          </el-checkbox-group>
+        </el-form-item>
+        <el-form-item label="社会保障:">
+          <el-checkbox-group v-model="formInline.type2">
+            <el-checkbox label="养老保险"></el-checkbox>
+            <el-checkbox label="失业保险"></el-checkbox>
+            <el-checkbox label="生育保险"></el-checkbox>
+            <el-checkbox label="医疗保险"></el-checkbox>
+            <el-checkbox label="工伤保险"></el-checkbox>
+          </el-checkbox-group>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -31,12 +56,14 @@
   import staffInfoTbl from '../../../components/staffInfoTbl';
   import searchInput from '../../../components/searchInput';
   import pagination from '../../../components/pagination';
+  import orgSelect from '../../../components/orgSelect';
   
   export default {
     components: {
       staffInfoTbl,
       searchInput,
-      pagination
+      pagination,
+      orgSelect
     },
   
     data() {
@@ -64,13 +91,15 @@
         }],
         visible: false,
         operation: '',
-        form: {
-          name: '',
-          code: '',
-          org: '',
-          tel: ''
-        },
-        formLabelWidth: '120px'
+        formInline: {
+          user: '王小虎',
+          region: '中国银行',
+          code: '89757',
+          code2: '6555212930482',
+          type: ['基本工资', '岗位工资'],
+          type2: ['养老保险', '医疗保险'],
+          org: '技术部-产品经理-正式'
+        }
       };
     },
   
@@ -82,6 +111,9 @@
       edit() {
         this.operation = '编辑';
         this.visible = true;
+      },
+      onSubmit() {
+        console.log('submit!');
       }
     }
   };

@@ -83,6 +83,23 @@
       modal(type) {
         this.operation = type === 'new' ? '新增求职者' : '求职者资料编辑';
         this.visible = true;
+        if (type === 'edit') {
+          this.form = {
+            name: '王小虎',
+            phone: '15061126729',
+            mail: 'sherryslin@163.com',
+            job: '产品经理',
+            date: '2016-05-02'
+          };
+        } else {
+          this.form = {
+            name: '',
+            phone: '',
+            mail: '',
+            job: '',
+            date: ''
+          };
+        }
       }
     }
   };

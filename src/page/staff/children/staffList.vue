@@ -5,7 +5,7 @@
     </searchInput>
     <staffInfoTbl :data="staffInfo" @edit="edit()" @view="view()"></staffInfoTbl>
     <pagination></pagination>
-
+  
     <el-dialog :title="operation" v-model="visible">
       <el-form :model="form">
         <el-form-item label="姓名" :label-width="formLabelWidth">
@@ -24,7 +24,7 @@
           <el-input v-model="form.address" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="所属部门" :label-width="formLabelWidth">
-          <orgSelect organization="form.org"></orgSelect> 
+          <orgSelect organization="form.org"></orgSelect>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -90,14 +90,38 @@
       add() {
         this.operation = '新增';
         this.visible = true;
+        this.form = {
+          name: '',
+          code: '',
+          mail: '',
+          tel: '',
+          address: '',
+          org: ''
+        };
       },
       view() {
         this.operation = '查看';
         this.visible = true;
+        this.form = {
+          'name': '王小虎',
+          'code': '89757',
+          'mail': 'sherryslin@163.com',
+          'tel': '15061126729',
+          'address': '江苏省常州市新北区',
+          'org': '技术部-产品经理-正式'
+        };
       },
       edit() {
         this.operation = '编辑';
         this.visible = true;
+        this.form = {
+          'name': '王小虎',
+          'code': '89757',
+          'mail': 'sherryslin@163.com',
+          'tel': '15061126729',
+          'address': '江苏省常州市新北区',
+          'org': '技术部-产品经理-正式'
+        };
       }
     }
   };

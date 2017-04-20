@@ -71,6 +71,19 @@
       modal(type) {
         this.operation = type === 'new' ? '新增在招岗位' : '编辑在招岗位';
         this.visible = true;
+        if (type === 'edit') {
+          this.form = {
+            name: '新媒体运营专员',
+            range: '10k',
+            detail: '1-3年工作经历，有独立负责至少一次参与量超过10w+的互联网营销活动.......'
+          };
+        } else {
+          this.form = {
+            name: '',
+            range: '',
+            detail: ''
+          };
+        }
       }
     }
   };
