@@ -1,14 +1,14 @@
 <template>
   <div>
-    <el-select v-model="orgValue" placeholder="请选择">
+    <el-select v-model="orgValue" placeholder="请选择" @change="select()">
       <el-option v-for="item in org" :label="item.value" :value="item.value" :key="item.value">
       </el-option>
     </el-select>
-    <el-select v-model="jobValue" placeholder="请选择">
+    <el-select v-model="jobValue" placeholder="请选择" @change="select()">
       <el-option v-for="item in job" :label="item.value" :value="item.value" :key="item.value">
       </el-option>
     </el-select>
-    <el-select v-model="timeValue" placeholder="请选择" @select="select()">
+    <el-select v-model="timeValue" placeholder="请选择" @change="select()">
       <el-option v-for="item in time" :label="item.value" :value="item.value" :key="item.value">
       </el-option>
     </el-select>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+  import bus from '../page/bus';
+  
   export default {
     props: ['organization'],
     data() {
@@ -65,7 +67,11 @@
     },
     methods: {
       select() {
-        alert(this.fullOrg);
+        if (this.orgValue && this.jobValue && this.timeValue) {
+          console.log(this.fullOrg);
+          bus.fullOrg = this.fullOrg;
+          this.$emit('selected');
+        }
       }
     }
   };

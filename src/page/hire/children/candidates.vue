@@ -1,32 +1,37 @@
 <template>
   <div>
-    <searchInput>
-      <el-button @click="modal('new', $event)" style="float: right;" type="primary">新增</el-button>
-    </searchInput>
-    <candidateCard :data="tableData" @modal="modal('edit', $event)">
+    <div class="search">
+      搜索：
+      <el-input placeholder="请输入关键字" size="large" icon="search" v-model="keyword" :on-icon-click="findBy">
+      </el-input>
+      <el-button @click="addOne" style="float: right;" type="primary">新增</el-button>
+    </div>
+    <!--<searchInput>
+          <el-button @click="modal('new', $event)" style="float: right;" type="primary">新增</el-button>
+        </searchInput>-->
+    <candidateCard :data="tableData" @editIt="editIt()" @remove="remove()">
     </candidateCard>
-    <pagination></pagination>
+    <el-pagination v-if="showPage" layout="prev, pager, next" :total="50" @current-change="loadPage">
+    </el-pagination>
     <el-dialog :title="operation" v-model="visible">
       <el-form :model="form">
         <el-form-item label="姓名" :label-width="formLabelWidth">
-          <el-input v-model="form.name" auto-complete="off"></el-input>
+          <el-input v-model="form.hipeName" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="联系方式" :label-width="formLabelWidth">
-          <el-input v-model="form.phone" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="邮箱" :label-width="formLabelWidth">
-          <el-input v-model="form.mail" auto-complete="off"></el-input>
+          <el-input v-model="form.hipeTel" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="意向岗位" :label-width="formLabelWidth">
-          <el-input v-model="form.job" auto-complete="off"></el-input>
+          <el-input v-model="form.hipeJob" auto-complete="off"></el-input>
         </el-form-item>
         <el-form-item label="面试时间" :label-width="formLabelWidth">
-          <timepicker></timepicker>
+          <el-date-picker v-model="form.hipeTime" type="date" placeholder="选择日期" :picker-options="pickerOptions">
+          </el-date-picker>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false">取 消</el-button>
-        <el-button type="primary" @click="visible = false">确 定</el-button>
+        <el-button type="primary" @click="status === 'add' ? add() : update()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -34,72 +39,133 @@
 
 <script>
   import candidateCard from './candidateCard';
-  import searchInput from '../../../components/searchInput';
-  import pagination from '../../../components/pagination';
-  import timepicker from '../../../components/timepicker';
+  import axios from 'axios';
+  import bus from '../../bus';
+  
   export default {
     components: {
-      searchInput,
-      pagination,
-      candidateCard,
-      timepicker
+      candidateCard
     },
     data() {
       return {
+        pickerOptions: {
+          disabledDate(time) {
+            return time.getTime() < Date.now() - 8.64e7;
+          }
+        },
         visible: false,
         operation: '',
+        keyword: '',
+        showPage: true,
         form: {
-          name: '',
-          phone: '',
-          mail: '',
-          job: '',
-          date: ''
+          hipeId: '',
+          hipeName: '',
+          hipeTel: '',
+          hipeJob: '',
+          hipeTime: ''
         },
         formLabelWidth: '120px',
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          job: '产品经理',
-          phone: '15061126729'
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          job: '产品经理',
-          phone: '15061126729'
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          job: '产品经理',
-          phone: '15061126729'
-        }, {
-          date: '2016-05-02',
-          name: '王小虎',
-          job: '产品经理',
-          phone: '15061126729'
-        }]
+        tableData: []
       };
     },
+    created() {
+      axios.defaults.baseURL = 'http://localhost:8080';
+      axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:3000';
+      this.loadPage(1);
+      bus.$on('editIt', this.editIt);
+      bus.$on('remove', this.remove);
+    },
     methods: {
-      modal(type) {
+      addOne() {
+        this.status = 'add';
+        this.modal('new');
+      },
+      editIt(index) {
+        console.log(index);
+        this.status = 'edit';
+        this.editIndex = index;
+        this.modal('edit', index);
+      },
+      findBy() {
+        if (this.keyword === '') {
+          this.loadPage(1);
+          return;
+        }
+        axios.get('/hipe/findBy/' + this.keyword)
+          .then((res) => {
+            console.log(res.data);
+            this.tableData = res.data;
+          })
+          .catch((err) => {
+            if (err) this.$message.error('网络错误');
+          });
+      },
+      modal(type, index) {
         this.operation = type === 'new' ? '新增求职者' : '求职者资料编辑';
         this.visible = true;
         if (type === 'edit') {
-          this.form = {
-            name: '王小虎',
-            phone: '15061126729',
-            mail: 'sherryslin@163.com',
-            job: '产品经理',
-            date: '2016-05-02'
-          };
+          this.form = Object.assign({}, this.tableData[index]);
         } else {
           this.form = {
-            name: '',
-            phone: '',
-            mail: '',
-            job: '',
-            date: ''
+            hipeId: '',
+            hipeName: '',
+            hipeTel: '',
+            hipeJob: '',
+            hipeTime: ''
           };
         }
+      },
+      add() {
+        this.visible = false;
+        axios.post('/hipe/add', this.form)
+          .then((res) => {
+            console.log(res.data);
+            this.form = {};
+            this.tableData.unshift(res.data);
+            this.$message.success('添加招聘岗位成功');
+          })
+          .catch((err) => {
+            if (err) this.$message.error('网络错误');
+          });
+      },
+      update() {
+        this.visible = false;
+        axios.put('/hipe/update', this.form)
+          .then((res) => {
+            if (res.status === 200) {
+              this.$message.success('修改崗位成功');
+              Object.assign(this.tableData[this.editIndex], this.form);
+              this.form = {};
+            }
+          })
+          .catch((err) => {
+            if (err) this.$message.error('网络错误');
+          });
+      },
+      remove(index) {
+        let id = this.tableData[index].hipeId;
+        axios.delete(`/hipe/delete/${id}`)
+          .then((res) => {
+            if (res.status === 200) {
+              this.tableData.splice(index, 1);
+              this.$message.success('删除成功');
+            }
+          })
+          .catch((err) => {
+            if (err) this.$message.error('网络错误');
+          });
+      },
+      loadPage(i) {
+        let page = i - 1;
+        console.log(page);
+        axios.get('/hipe/find/' + page)
+          .then((res) => {
+            console.log(res.data);
+            this.tableData = res.data;
+          })
+          .catch((err) => {
+            if (err) this.$message.error('网络错误');
+          });
       }
     }
   };
@@ -109,5 +175,14 @@
   .el-button+.el-button {
     margin-left: 10px;
     margin-right: 5px;
+  }
+  
+  .search>.el-input {
+    width: 20%;
+    margin-bottom: 10px
+  }
+  
+  .search>.el-button {
+    margin-right: 20px;
   }
 </style>

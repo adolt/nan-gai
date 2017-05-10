@@ -1,39 +1,38 @@
 <template>
   <el-table :data="tableData" border style="width: 100%">
-    <el-table-column prop="name" label="姓名">
+    <el-table-column prop="staffName" label="姓名">
     </el-table-column>
-    <el-table-column prop="code" label="编号">
+    <el-table-column prop="staffNum" label="工号">
     </el-table-column>
-    <el-table-column prop="org" label="组织">
+    <el-table-column prop="staffOrga" label="部门">
     </el-table-column>
-    <el-table-column prop="tel" label="电话">
+    <el-table-column prop="staffTel" label="电话">
     </el-table-column>
     <el-table-column label="操作">
       <template scope="scope">
-          <el-button @click="showDetail('view')" type="text">查看</el-button>
-          <el-button @click="showDetail('edit')" type="text">编辑</el-button>
-</template>
+        <el-button @click="editIt(scope.$index)" type="text">修改</el-button>
+        <el-button @click="remove(scope.$index)" type="text">删除</el-button>
+      </template>
     </el-table-column>
   </el-table>
 </template>
 
 <script>
+  import bus from '../page/bus';
   export default {
     props: ['data'],
     methods: {
-      showDetail(type) {
-        console.log(type);
-        if (type === 'view') {
-          this.$emit('view');
-        } else {
-          this.$emit('edit');
-        }
+      editIt(index) {
+        bus.$emit('editStaff', index);
+      },
+      remove(index) {
+        bus.$emit('removeStaff', index);
       }
     },
-    data() {
-      return {
-        tableData: [].concat(this.data)
-      };
+    computed: {
+      tableData() {
+        return [].concat(this.data);
+      }
     }
   };
 </script>

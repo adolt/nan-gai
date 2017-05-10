@@ -25,7 +25,37 @@
         <h4>岗位信息</h4>
         <orgSelect :organization="formInline.org"></orgSelect>
         <h4>工资信息</h4>
-        <el-form-item label="工资信息:">
+        <el-form-item label="基本工资">
+          <el-input v-model="formInline.code2" placeholder="基本工资"></el-input>
+        </el-form-item>
+        <el-form-item label="岗位工资">
+          <el-input v-model="formInline.code2" placeholder="岗位工资"></el-input>
+        </el-form-item>
+        <el-form-item label="绩效工资">
+          <el-input v-model="formInline.code2" placeholder="绩效工资"></el-input>
+        </el-form-item>
+        <el-form-item label="奖励补贴">
+          <el-input v-model="formInline.code2" placeholder="奖励补贴"></el-input>
+        </el-form-item>
+        <el-form-item label="满勤奖">
+          <el-input v-model="formInline.code2" placeholder="满勤奖"></el-input>
+        </el-form-item>
+        <el-form-item label="养老保险">
+          <el-input v-model="formInline.code2" placeholder="养老保险"></el-input>
+        </el-form-item>
+        <el-form-item label="失业保险">
+          <el-input v-model="formInline.code2" placeholder="失业保险"></el-input>
+        </el-form-item>
+        <el-form-item label="生育保险">
+          <el-input v-model="formInline.code2" placeholder="生育保险"></el-input>
+        </el-form-item>
+        <el-form-item label="医疗保险">
+          <el-input v-model="formInline.code2" placeholder="医疗保险"></el-input>
+        </el-form-item>
+        <el-form-item label="工伤保险">
+          <el-input v-model="formInline.code2" placeholder="工伤保险"></el-input>
+        </el-form-item>
+        <!--<el-form-item label="工资信息:">
           <el-checkbox-group v-model="formInline.type">
             <el-checkbox label="基本工资"></el-checkbox>
             <el-checkbox label="岗位工资"></el-checkbox>
@@ -33,8 +63,8 @@
             <el-checkbox label="奖励补贴"></el-checkbox>
             <el-checkbox label="满勤奖"></el-checkbox>
           </el-checkbox-group>
-        </el-form-item>
-        <el-form-item label="社会保障:">
+        </el-form-item>-->
+        <!--<el-form-item label="社会保障:">
           <el-checkbox-group v-model="formInline.type2">
             <el-checkbox label="养老保险"></el-checkbox>
             <el-checkbox label="失业保险"></el-checkbox>
@@ -42,7 +72,7 @@
             <el-checkbox label="医疗保险"></el-checkbox>
             <el-checkbox label="工伤保险"></el-checkbox>
           </el-checkbox-group>
-        </el-form-item>
+        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false">取 消</el-button>

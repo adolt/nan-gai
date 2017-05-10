@@ -1,8 +1,5 @@
 <template>
   <div>
-    <searchInput>
-      <el-button @click="modal('new')" style="float: right;" type="primary">新增</el-button>
-    </searchInput>
     <wageCard v-for="wage in wages" key="wage.name" :wage="wage"></wageCard>
     <pagination></pagination>
   </div>

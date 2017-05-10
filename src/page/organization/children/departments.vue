@@ -1,10 +1,6 @@
 <template>
   <div>
-    <searchInput>
-      <el-button @click="modal('new')" style="float: right;" type="primary">新增</el-button>
-    </searchInput>
     <departmentCard v-for="depart in departments" key="depart.name" :depart="depart">
-      <el-button @click="visible = false" style="float: right;" type="primary">删除</el-button>
       <el-button @click="modal('edit', $event)" style="float: right;" type="primary">修改</el-button>
     </departmentCard>
     <pagination></pagination>
