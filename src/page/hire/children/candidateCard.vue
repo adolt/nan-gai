@@ -1,5 +1,5 @@
 <template>
-  <el-table :data="tableData" stripe style="width: 100%">
+  <el-table :data="tableData" stripe style="width: 100%;">
     <el-table-column prop="hipeName" label="姓名">
     </el-table-column>
     <el-table-column prop="hipeJob" label="求职岗位">

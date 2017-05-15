@@ -12,21 +12,32 @@
     <el-menu-item index="4">
       <router-link to="/organization">组织规划管理</router-link>
     </el-menu-item>
+    <span class="welcome" v-if="!!bus.user">欢迎,&nbsp;&nbsp;&nbsp;&nbsp;{{ bus.user }}</span>
   </el-menu>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        activeIndex: '1'
-      };
-    }
-  };
+import bus from '../page/bus';
+export default {
+  data() {
+    return {
+      activeIndex: '1',
+      bus: bus
+    };
+  }
+};
 </script>
 
 <style scoped>
-  a {
-    text-decoration: none;
-  }
+a {
+  text-decoration: none;
+}
+
+.welcome {
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 50px;
+  color: white;
+}
 </style>

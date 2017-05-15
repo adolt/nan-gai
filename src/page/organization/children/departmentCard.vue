@@ -6,8 +6,8 @@
     </div>
     <div class="description">
       <b>部门岗位：</b>
-      <el-tag type="primary" v-for="item in items" key="item">
-        {{item}}
+      <el-tag type="primary" v-for="item in items" key="item.jobId">
+        {{item.jobName}}
       </el-tag>
     </div>
   </el-card>
@@ -19,8 +19,8 @@
   
     data() {
       return {
-        items: [].concat(this.depart.jobs),
-        name: this.depart.name
+        items: [].concat(this.depart.orgJobs),
+        name: this.depart.orga.organName
       };
     }
   };

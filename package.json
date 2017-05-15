@@ -7,7 +7,8 @@
   "scripts": {
     "dev": "cooking watch -p",
     "dist": "cooking build -p",
-    "deploy": "cooking build --no-color"
+    "deploy": "cooking build --no-color",
+    "run": "cooking watch"
   },
   "author": "adolt",
   "license": "ISC",

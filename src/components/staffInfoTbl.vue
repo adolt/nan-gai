@@ -18,21 +18,31 @@
 </template>
 
 <script>
-  import bus from '../page/bus';
-  export default {
-    props: ['data'],
-    methods: {
-      editIt(index) {
+import bus from '../page/bus';
+export default {
+  props: ['data', 'type'],
+  methods: {
+    editIt(index) {
+      if (this.type === 'staff') {
         bus.$emit('editStaff', index);
-      },
-      remove(index) {
-        bus.$emit('removeStaff', index);
+      } else {
+        bus.$emit('editSalary', index);
       }
     },
-    computed: {
-      tableData() {
-        return [].concat(this.data);
+    remove(index) {
+      if (this.type === 'staff') {
+        bus.$emit('removeStaff', index);
+        console.log('removeStaff');
+      } else {
+        console.log('removeSalary');
+        bus.$emit('removeSalary', index);
       }
     }
-  };
+  },
+  computed: {
+    tableData() {
+      return [].concat(this.data);
+    }
+  }
+};
 </script>

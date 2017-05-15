@@ -5,14 +5,8 @@
       <slot></slot>
     </div>
     <div class="description">
-      工资组成：
-      <p>工资：<el-tag type="primary" v-for="item in salary" key="item">
-        {{item}}
-      </el-tag></p>
-      <p>福利：<el-tag type="success" v-for="item in welfare" key="item">
-        {{item}}
-      </el-tag></p>
-      <p>社会保障：<el-tag type="warning" v-for="item in social" key="item">
+      <b>工资组成：</b>
+      <p><el-tag type="success" v-for="item in tags" key="item">
         {{item}}
       </el-tag></p>
     </div>
@@ -25,9 +19,7 @@
   
     data() {
       return {
-        salary: [].concat(this.wage.salary),
-        welfare: [].concat(this.wage.welfare),
-        social: [].concat(this.wage.social),
+        tags: [].concat(this.wage.tags),
         name: this.wage.name
       };
     }
