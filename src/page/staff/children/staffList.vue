@@ -45,7 +45,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false">取 消</el-button>
-        <el-button type="primary" @click="status === 'add' ? add() : update()">确 定</el-button>
+        <el-button type="primary" @click="status === 'add' ? add() : update()">确认修改</el-button>
       </div>
     </el-dialog>
   </div>
@@ -199,6 +199,14 @@
           .catch((err) => {
             if (err) this.$message.error('网络错误');
           });
+      }
+    },
+    watch: {
+      keyword(val) {
+        this.showPage = val === '';
+        if (val === '') {
+          this.loadPage(1);
+        }
       }
     }
   };

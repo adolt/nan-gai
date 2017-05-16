@@ -47,6 +47,8 @@ export default {
       time: [{
         value: '正式'
       }, {
+        value: '试用期'
+      }, {
         value: '实习期'
       }],
       orgValue: '',

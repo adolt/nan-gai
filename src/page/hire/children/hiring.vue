@@ -176,6 +176,9 @@ export default {
   watch: {
     keyword(val) {
       this.showPage = val === '';
+      if (val === '') {
+        this.loadPage(1);
+      }
     }
   }
 };

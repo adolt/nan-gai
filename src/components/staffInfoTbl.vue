@@ -10,7 +10,7 @@
     </el-table-column>
     <el-table-column label="操作">
       <template scope="scope">
-        <el-button @click="editIt(scope.$index)" type="text">修改</el-button>
+        <el-button @click="editIt(scope.$index)" type="text">查看</el-button>
         <el-button @click="remove(scope.$index)" type="text">删除</el-button>
       </template>
     </el-table-column>

@@ -188,6 +188,14 @@ export default {
           if (err) this.$message.error('网络错误');
         });
     }
+  },
+  watch: {
+    keyword(val) {
+      this.showPage = val === '';
+      if (val === '') {
+        this.loadPage(1);
+      }
+    }
   }
 };
 </script>

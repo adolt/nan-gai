@@ -51,7 +51,7 @@ export default {
   created() {
     axios.defaults.baseURL = 'http://localhost:8080';
     axios.defaults.headers.common['Access-Control-Allow-Origin'] = 'http://localhost:3000';
-    if (bus.user) {
+    if (sessionStorage.getItem('user')) {
       this.notlogin = false;
     }
   },
@@ -71,6 +71,7 @@ export default {
             if (res.data !== -1) {
               this.$message.success('登陆成功, 欢迎  ' + res.data);
               bus.user = res.data;
+              sessionStorage.setItem('user', res.data);
               this.notlogin = false;
             } else {
               this.$message.error('用户名或密码错误');
