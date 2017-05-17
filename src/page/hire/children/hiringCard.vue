@@ -11,7 +11,7 @@
           </div>
         </el-popover>
         <el-button style="float: right;" type="primary" v-popover:promot>删除</el-button>
-        <el-button @click="edit" style="float: right;" type="primary">修改</el-button>
+        <el-button @click="edit" style="float: right;" type="primary">查看</el-button>
       </div>
       <div class="description">
         {{description}}

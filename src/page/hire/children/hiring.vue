@@ -30,7 +30,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false">取 消</el-button>
-        <el-button type="primary" @click="status === 'add' ? add() : update() ">确 定</el-button>
+        <el-button type="primary" @click="status === 'add' ? add() : update() ">确定修改</el-button>
       </div>
     </el-dialog>
   </div>

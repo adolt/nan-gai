@@ -8,7 +8,7 @@
         <candidates></candidates>
       </el-tab-pane>
     </el-tabs>
-    <el-dialog title="请登录" size="tiny" :visible.sync="notlogin" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
+    <el-dialog :title="operation" size="tiny" :visible.sync="notlogin" :close-on-click-modal="false" :close-on-press-escape="false" :show-close="false">
       <el-form :model="form" :rules="rules" ref="loginForm">
         <el-form-item label="账号" prop="userId">
           <el-input v-model="form.userId" auto-complete="off"></el-input>
@@ -18,7 +18,8 @@
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="login">确 定</el-button>
+        <el-button type="success" @click="logup">注 册</el-button>
+        <el-button type="primary" @click="operation === '注册' ? signup() : login()">确 定</el-button>
       </div>
     </el-dialog>
   </div>
@@ -34,6 +35,7 @@ export default {
   data() {
     return {
       notlogin: true,
+      operation: '请登录',
       form: {
         userId: '',
         userPassword: ''
@@ -83,6 +85,23 @@ export default {
             }
           });
       });
+    },
+    logup() {
+      this.operation = '注册';
+    },
+    signup() {
+      axios.post('/user/signup', this.form)
+        .then((res) => {
+          if (res.data === 1) {
+            this.$message.success('注册成功，请登录');
+            this.operation = '请登录';
+          }
+        })
+        .catch((err) => {
+          if (err) {
+            this.$message.error('网络错误！');
+          }
+        });
     }
   }
 };

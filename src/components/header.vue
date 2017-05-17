@@ -9,6 +9,7 @@
     <el-menu-item index="/organization">组织规划管理
     </el-menu-item>
     <span class="welcome" v-if="!!bus.user">欢迎,&nbsp;&nbsp;&nbsp;&nbsp;{{ bus.user }}</span>
+    <el-menu-item index="/hire" @click="logout">注销</el-menu-item>
   </el-menu>
 </template>
 
@@ -20,6 +21,12 @@ export default {
       activeIndex: '/hire',
       bus: bus
     };
+  },
+  methods: {
+    logout() {
+      this.bus.user = '';
+      sessionStorage.setItem('user', '');
+    }
   }
 };
 </script>
@@ -33,7 +40,12 @@ a {
   display: inline-block;
   position: absolute;
   top: 20px;
-  right: 50px;
+  right: 80px;
   color: white;
+}
+.el-menu-item:last-child {
+  color: red;
+  position: fixed;
+  right: 10px;
 }
 </style>
