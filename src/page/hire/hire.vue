@@ -34,7 +34,7 @@ import axios from 'axios';
 export default {
   data() {
     return {
-      notlogin: true,
+      notlogin: false,
       operation: '请登录',
       form: {
         userId: '',
